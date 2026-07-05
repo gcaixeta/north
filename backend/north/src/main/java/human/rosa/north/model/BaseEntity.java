@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
+import org.hibernate.Hibernate;
 
 import java.util.UUID;
 
@@ -29,7 +30,8 @@ public abstract class BaseEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof BaseEntity other)) return false;
-        return id != null && id.equals(other.id);
+        if (Hibernate.getClass(this) != Hibernate.getClass(other)) return false;
+        return id != null && id.equals(other.getId());
     }
 
     @Override

@@ -12,6 +12,10 @@ import lombok.Setter;
 @Setter
 public class Telos extends BaseEntity{
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(nullable = false)
     private String name;
     private String description;

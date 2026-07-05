@@ -1,7 +1,6 @@
 package human.rosa.north.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,19 +12,26 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Event extends BaseEntity{
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "telos_id")
+    private Telos telos;
 
     @Column(nullable = false)
     private String text;
 
     @Column(nullable = false)
-    private Instant timestamp;
+    private Instant occurredAt;
 
     @PrePersist
     public void prePersist() {
-        if(timestamp == null) {
-            timestamp = Instant.now();
+        if(occurredAt == null) {
+            occurredAt = Instant.now();
         }
     }
 }
