@@ -1,14 +1,14 @@
 services:
   postgres:
     image: postgres:16
-    container_name: postgres-db
+    container_name: north-postgres
     restart: always
     environment:
       POSTGRES_DB: north
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
     ports:
-      - "5432:5432"
+      - "5050:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d
