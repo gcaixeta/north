@@ -8,11 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "event")
-public class Event {
-
-    @Id
-    @Column(columnDefinition = "uuid", updatable = false, nullable = false)
-    private UUID id;
+public class Event extends BaseEntity{
 
     @Column(nullable = false)
     private String text;
@@ -22,16 +18,9 @@ public class Event {
 
     @PrePersist
     public void prePersist() {
-        if(id == null) {
-            id = UuidCreator.getTimeOrderedEpoch();
-        }
         if(timestamp == null) {
             timestamp = Instant.now();
         }
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getText() {
